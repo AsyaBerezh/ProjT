@@ -10,6 +10,16 @@ if (mysqli_connect_errno()) {
 header('Content-Type: application/json');
 $input = filter_input_array(INPUT_POST);
 
+// $ID_stk=$_POST['ID_stk'];
+// $Fullname=$_POST['Fullname'];
+// $Position=$_POST['Position'];
+// $Description=$_POST['Description'];
+// $Success_criteria=$_POST['Success_criteria'];
+// $Key_stakeholder=$_POST['Key_stakeholder'];
+// $Deadline=$_POST['Deadline'];
+// $Description=$_POST['Description'];
+// $Result=$_POST['Result'];
+// $Final=$_POST['Final'];
 
 if ($input['action'] == 'edit') {
     $mysqli->query("UPDATE stakeholders SET Fullname='" . $input['Fullname'] . "', 
@@ -20,22 +30,20 @@ if ($input['action'] == 'edit') {
 } else if ($input['action'] == 'delete') {
     $mysqli->query(" DELETE FROM `stakeholders` WHERE ID_stk ='" . $input['ID_stk'] . "'");
 } else if ($input['action'] == 'add') {
+    // $mysqli->query("INSERT INTO `stakeholders` (`ID_stk`, `ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES ('$Fullname','$Position','$Description','$Success_criteria','$Key_stakeholder','$Deadline','$Description','$Result','$Final')");
     $mysqli->query("INSERT INTO `stakeholders` (`ID_stk`, `ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES (". $input['Fullname']. ","
-	. $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
-	. $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
-	. $input['Final']. ")");
-
-    echo "INSERT INTO `stakeholders` (`ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES (". $input['Fullname']. ","
-    . $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
-    . $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
-    . $input['Final']. ")";
+        . $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
+        . $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
+        . $input['Final']. ")");
 } 
 echo json_encode($input);
 ?>
 
-
-    $mysqli->query("INSERT INTO `stakeholders` (`ID_stk`, `ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES ('$Fullname','$Position','$Description','$Success_criteria','$Key_stakeholder','$Deadline','$Description','$Result','$Final')");
-
+<!--     $mysqli->query("INSERT INTO `stakeholders` (`ID_stk`, `ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES (". $input['Fullname']. ","
+    	. $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
+    	. $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
+    	. $input['Final']. ")");
+ -->
 //include_once("db_connect.php");
 // if ($input['action'] == 'edit') {	
 // 	$update_field='';

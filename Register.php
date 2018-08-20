@@ -1,3 +1,7 @@
+<?php
+print_r($_POST);
+print_r($_GET);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,15 +84,25 @@
                                     </div>
                                 </div>
                                 <div class="form-bottom">
-                                    <form role="form" action="" method="post" class="login-form">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="form-username">Username</label>
-                                            <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                    <form role="form" action="./scripts/login.php" method="post" class="login-form">
+                                        <input type="hidden" value="login" id="login" name="login" />
+                                        <div class="form-group <?php echo (isset($_GET['error']) and $_GET['error'] == 'required') ? 'has-error has-feedback' : '' ?>">
+                                            <label class="sr-only" for="username">Username</label>
+                                            <input type="text" name="username" id="username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                            
+                                            <?php if (isset($_GET['error']) and $_GET['error'] == 'required'): ?>
+                                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                                            <?php endif; ?>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="form-password">Password</label>
-                                            <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        <div class="form-group <?php echo (isset($_GET['error']) and $_GET['error'] == 'required') ? 'has-error has-feedback' : '' ?>">
+                                            <label class="sr-only" for="password">Password</label>
+                                            <input type="password" name="password" id="password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        
+                                            <?php if (isset($_GET['error']) and $_GET['error'] == 'required'): ?>
+                                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                                            <?php endif; ?>
                                         </div>
+
                                         <button type="submit" class="btn">Sign in!</button>
                                     </form>
                                 </div>

@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php
+session_start();
+
+if (isset($_SESSION['user']) and !empty($_SESSION['user'])) {
+    echo '<br />';
+    echo "<h1 class='text-center'>Welcome " . $_SESSION['user']['Fullname'] . "</h1>";
+    echo '<h2 class="text-center"><a href="./scripts/logout.php">Logout</a></h2>';
+} else {
+    header('Location: ./Register.php');
+    exit;
+}
+?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -69,7 +81,7 @@ include_once("db_connect.php");
                     </thead>
                     <tbody>
                     <?php
-                    $sql_query = "SELECT ID_stk, Fullname, Position, Description, Success_criteria, Key_stakeholder, Deadline, Result, Final FROM stakeholders LIMIT 10";
+                    $sql_query = "SELECT ID_stk, Fullname, Position, Description, Success_criteria, Key_stakeholder, Deadline, Result, Final FROM stakeholders";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $stakeholders = mysqli_fetch_assoc($resultset) ) {
                     ?>
@@ -90,9 +102,8 @@ include_once("db_connect.php");
                     </div>
 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Menu</a>
 
-<form action="/live_edit.php" method="post">
+<form action="./scripts/live_edit.php" method="post">
     <tr>
-        <td><input name='ID_stk' /></td>
         <td><input name='Fullname'/></td>
         <td><input name='Position'/></td>
         <td><input name='Description'/></td>

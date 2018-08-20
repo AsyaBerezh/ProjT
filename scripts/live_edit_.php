@@ -6,7 +6,6 @@ if (mysqli_connect_errno()) {
   echo json_encode(array('mysqli' => 'Failed to connect to MySQL: ' . mysqli_connect_error()));
   exit;
 }
-
 header('Content-Type: application/json');
 $input = filter_input_array(INPUT_POST);
 
@@ -16,25 +15,21 @@ if ($input['action'] == 'edit') {
     	Position='" . $input['Position'] . "', Description='" . $input['Description'] . "', 
     	Success_criteria='" . $input['Success_criteria'] . "', Key_stakeholder='" . $input['Key_stakeholder'] . "', 
     	Deadline='" . $input['Deadline'] . "', Result='" . $input['Result'] . "', 
-    	Final='" . $input['Final'] . "' WHERE ID_stk='" . $input['ID_stk'] . "'");
+    	Final='" . $input['Final'] . "', WHERE ID_stk='" . $input['ID_stk'] . "'");
 } else if ($input['action'] == 'delete') {
-    $mysqli->query(" DELETE FROM `stakeholders` WHERE ID_stk ='" . $input['ID_stk'] . "'");
+    $mysqli->query("UPDATE stakeholders SET deleted=1 WHERE ID_stk='" . $input['ID_stk'] . "'");
 } else if ($input['action'] == 'add') {
-    $mysqli->query("INSERT INTO `stakeholders` (`ID_stk`, `ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES (". $input['Fullname']. ","
-	. $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
-	. $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
-	. $input['Final']. ")");
-
-    echo "INSERT INTO `stakeholders` (`ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES (". $input['Fullname']. ","
-    . $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
-    . $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
-    . $input['Final']. ")";
-} 
+    $mysqli->query("INSERT INTO stakeholders (Fullname,Position,Description,Success_criteria,
+    	Key_stakeholder,Deadline,Result,Final) VALUES (". $input['Fullname']. ","
+    	. $input['Position']. ",". $input['Description']. ",". $input['Success_criteria']. ","
+    	. $input['Key_stakeholder']. ",". $input['Deadline']. ",". $input['Result']. ","
+    	. $input['Final']. ")");
+} else if ($input['action'] == 'restore') {
+    $mysqli->query("UPDATE stakeholders SET deleted=0 WHERE ID_stk='" . $input['ID_stk'] . "'");
+}
 echo json_encode($input);
 ?>
 
-
-    $mysqli->query("INSERT INTO `stakeholders` (`ID_stk`, `ID_user`, `Fullname`, `Position`, `Description`, `Success_criteria`, `Key_stakeholder`, `Deadline`, `Result`, `Final`) VALUES ('$Fullname','$Position','$Description','$Success_criteria','$Key_stakeholder','$Deadline','$Description','$Result','$Final')");
 
 //include_once("db_connect.php");
 // if ($input['action'] == 'edit') {	

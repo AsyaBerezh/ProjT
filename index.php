@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user']) and !empty($_SESSION['user'])) {
+    echo '<br />';
+    echo "<h1 class='text-center'>Welcome " . $_SESSION['user']['Fullname'] . "</h1>";
+    echo '<h2 class="text-center"><a href="./scripts/logout.php">Logout</a></h2>';
+} else {
+    header('Location: ./Register.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
