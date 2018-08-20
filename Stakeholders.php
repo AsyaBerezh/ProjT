@@ -81,7 +81,7 @@ include_once("db_connect.php");
                     </thead>
                     <tbody>
                     <?php
-                    $sql_query = "SELECT ID_stk, Fullname, Position, Description, Success_criteria, Key_stakeholder, Deadline, Result, Final FROM stakeholders";
+                    $sql_query = "SELECT ID_stk, Fullname, Position, Description, Success_criteria, Key_stakeholder, Deadline, Result, Final FROM stakeholders where ID_user=" . $_SESSION['user']['ID_user'];
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $stakeholders = mysqli_fetch_assoc($resultset) ) {
                     ?>
